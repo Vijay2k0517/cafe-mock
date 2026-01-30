@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 3.9%; /* #0a0a0a */
+    --foreground: 0 0% 91%; /* #e8e8e8 */
+    --card: 0 0% 14%; /* #242424 */
+    --card-foreground: 0 0% 91%;
+    --popover: 0 0% 10%; /* #1a1a1a */
+    --popover-foreground: 0 0% 91%;
+    --primary: 28 41% 69%; /* #d4b088 */
+    --primary-foreground: 0 0% 3.9%;
+    --secondary: 0 0% 10%; /* #1a1a1a */
+    --secondary-foreground: 0 0% 91%;
+    --muted: 29 19% 34%; /* #6b5a47 */
+    --muted-foreground: 0 0% 58%; /* #949494 approx -> close to #a8a8a8 */
+    --accent: 28 41% 69%;
+    --accent-foreground: 0 0% 3.9%;
+    --destructive: 349 72% 63%; /* #e85d75 */
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 16%; /* #2a2a2a */
+    --input: 0 0% 16%;
+    --ring: 206 72% 64%; /* #5da9e9 */
+    --radius: 0.5rem;
+    --isai-primary: 28 41% 69%; /* primary accent */
+    --isai-cream: 33 73% 86%; /* #f4d7bc */
+    --isai-warm: 28 41% 69%;
+  }
+
+  .dark {
+    /* Keep same palette for dark mode (site default) */
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 91%;
+    --card: 0 0% 14%;
+    --card-foreground: 0 0% 91%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 91%;
+    --primary: 28 41% 69%;
+    --primary-foreground: 0 0% 3.9%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 91%;
+    --muted: 29 19% 34%;
+    --muted-foreground: 0 0% 66%;
+    --accent: 33 73% 86%; /* hover lighter */
+    --accent-foreground: 0 0% 3.9%;
+    --destructive: 349 72% 63%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 206 72% 64%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  /* Light components on dark background */
+  .light-components {
+    --card: 0 0% 96%; /* light component surface */
+    --card-foreground: 0 0% 10%;
+    --popover: 0 0% 96%;
+    --popover-foreground: 0 0% 10%;
+    --border: 0 0% 86%;
+  }
+}
+
+@layer components {
+  .isai-font {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .isai-primary {
+    color: hsl(var(--isai-primary));
+  }
+  
+  .bg-isai-primary {
+    background-color: hsl(var(--isai-primary));
+  }
+  
+  .parallax-bg {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  .marquee {
+    animation: marquee 30s linear infinite;
+  }
+  
+  .marquee-pause {
+    animation-play-state: paused;
+  }
+  
+  @keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+  
+  @keyframes marquee-left {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  
+  @keyframes marquee-right {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+  
+  .split-text {
+    overflow: hidden;
+  }
+  
+  .split-text-line {
+    overflow: hidden;
+    display: block;
+  }
+  
+  .split-text-word {
+    display: inline-block;
+    transform: translateY(100%);
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .split-text-revealed .split-text-word {
+    transform: translateY(0);
+  }
+  
+  .glass-nav {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  
+  .nav-pill {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .nav-pill::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s;
+  }
+  
+  .nav-pill:hover::before {
+    left: 100%;
+  }
+  
+  .nav-pill-active {
+    position: relative;
+  }
+  
+  .nav-pill-active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 2px;
+    background: #EFC1A9;
+    border-radius: 1px;
+  }
+  
+  .floating-card {
+    transition: transform 0.3s ease-out;
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      animation: none;
+    }
+    
+    .split-text-word {
+      transform: none;
+      transition: none;
+    }
+    
+    .parallax-bg {
+      transform: none !important;
+    }
+  }
+}
